@@ -1,0 +1,6 @@
+.DS_Store
+Desktop.ini
+
+.env
+/gcloud/.config
+/app/nginx
