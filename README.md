@@ -54,13 +54,24 @@ $ docker exec -it app-test bash
 # exit
 ```
 
-GCloud初期設定
+GCloud初期設定（Googleアカウントで認証する場合）
 ```
 $ docker exec -it app-test-gcloud bash
 # gcloud init
   (指定された内容をGCPの設定に合わせて設定)
 # exit
 ```
+
+GCloud初期設定（サービスアカウントを使用する場合）  
+[公式手順](https://cloud.google.com/docs/authentication/getting-started?authuser=0&hl=ja)に沿って、JSONのキーをダウンロード後、コンテナに転送します。
+```
+$ docker cp xxxxxx.json /tmp/app-service.json
+$ docker exec -it app-test-gcloud bash
+# mv /tmp/app-service.json ~/.gcloud/key/app-service.json
+# gcloud auth activate-service-account [ACCOUNT] --key-file=~/.gcloud/key/app-service.json --project=[PROJECT_ID]   ※1
+# exit
+```
+※1 詳しくは、[サービスアカウントの認証（設定）](https://cloud.google.com/sdk/gcloud/reference/auth/activate-service-account)を参照してください。
 
 GCloudへdeploy (GCloudにアクセス)
 ```
